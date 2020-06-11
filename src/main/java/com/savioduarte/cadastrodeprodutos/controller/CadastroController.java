@@ -54,12 +54,16 @@ public class CadastroController extends HttpServlet {
 		HttpSession session = request.getSession();
 		
 		List<ProdutoBean> produtos = (List<ProdutoBean>) session.getAttribute("produtos");
-
+		List<CategoriaBean> categorias = (List<CategoriaBean>) session.getAttribute("categorias");
+		
 		
 		if(produtos == null) {
 			produtos = new ArrayList<ProdutoBean>();
+			categorias = new ArrayList<CategoriaBean>();
 			session.setAttribute("produtos", produtos);
+			session.setAttribute("categorias", categorias);
 		}
+		
 		
 		
 		Integer codigo = produtos.size();
@@ -68,13 +72,18 @@ public class CadastroController extends HttpServlet {
 		String categoria = request.getParameter("categoria");
 		
 		ProdutoBean prod = new ProdutoBean(codigo, nomeProduto, preco, categoria);
+		CategoriaBean cat = new CategoriaBean(categoria);
 		
-		
-		produtos.stream().forEach(p -> System.out.print(prod.getCategoria())); 
+		//produtos.stream().forEach(p -> System.out.print(prod.getCategoria())); 
 		
 		produtos.add(prod);
+		categorias.add(cat);
+		
 		
 		session.setAttribute("produtos", produtos);
+		session.setAttribute("categorias", categorias);
+		
+		//System.out.print(categorias.stream().distinct().collect(Collectors.toList()));
 		
 //		for (ProdutoBean produtoBean : produtos) {
 //			System.out.print(produtoBean.getNomeProduto());

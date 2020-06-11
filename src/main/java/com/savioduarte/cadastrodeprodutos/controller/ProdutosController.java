@@ -26,7 +26,7 @@ public class ProdutosController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	private ProdutosBean produtosBean;
-	private CategoriasBean categoriaBean;
+	private CategoriasBean categoriasBean;
 	
     /**
      * @see HttpServlet#HttpServlet()
@@ -35,7 +35,7 @@ public class ProdutosController extends HttpServlet {
         super();
         // TODO Auto-generated constructor stub
         produtosBean = new ProdutosBean();
-        categoriaBean = new CategoriasBean();
+        categoriasBean = new CategoriasBean();
     }
 
 	/**
@@ -47,18 +47,21 @@ public class ProdutosController extends HttpServlet {
 		String nomeCategoria = request.getParameter("categoria");
 		
 		List<ProdutoBean> produtos = (List<ProdutoBean>) session.getAttribute("produtos");
+		List<CategoriaBean> categorias = (List<CategoriaBean>) session.getAttribute("categorias");
+		
 		
 		request.setAttribute("produtos", produtosBean.getProdutosFiltrados(nomeCategoria, produtos));
+		request.setAttribute("categorias", categoriasBean.getCategorias(categorias));
+
 		//request.setAttribute("categorias", categoriaBean.getCategorias(produtos));
 		
 		
 		if (produtos == null) {
 			produtos = new ArrayList<ProdutoBean>();
+			categorias = new ArrayList<CategoriaBean>();
 			request.setAttribute("produtos", produtos);
+			request.setAttribute("categorias", categorias);
 		}
-		
-		
-		produtos.stream().distinct().collect(Collectors.toList());
 		
 		request.getRequestDispatcher("/produtos.jsp").forward(request, response);
 	}
