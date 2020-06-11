@@ -35,7 +35,7 @@
 										<label for="categoria">Categoria do Produto</label> 
 											<input name="categoria" class="form-control">
 									</div>
-									<button type="submit" class="btn btn-dark">Cadastrar</button>
+									<button name="cadastrar" type="submit" class="btn btn-dark">Cadastrar</button>
 								</form>
 							</div>
 						</div>
