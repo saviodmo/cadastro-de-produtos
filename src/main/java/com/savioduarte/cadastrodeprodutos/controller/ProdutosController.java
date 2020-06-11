@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 
 
 import com.savioduarte.cadastrodeprodutos.business.bean.CategoriaBean;
+import com.savioduarte.cadastrodeprodutos.business.bean.CategoriasBean;
 import com.savioduarte.cadastrodeprodutos.business.bean.ProdutoBean;
 import com.savioduarte.cadastrodeprodutos.business.bean.ProdutosBean;
 
@@ -25,6 +26,7 @@ public class ProdutosController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	private ProdutosBean produtosBean;
+	private CategoriasBean categoriaBean;
 	
     /**
      * @see HttpServlet#HttpServlet()
@@ -33,6 +35,7 @@ public class ProdutosController extends HttpServlet {
         super();
         // TODO Auto-generated constructor stub
         produtosBean = new ProdutosBean();
+        categoriaBean = new CategoriasBean();
     }
 
 	/**
@@ -46,7 +49,9 @@ public class ProdutosController extends HttpServlet {
 		List<ProdutoBean> produtos = (List<ProdutoBean>) session.getAttribute("produtos");
 		
 		request.setAttribute("produtos", produtosBean.getProdutosFiltrados(nomeCategoria, produtos));
-
+		//request.setAttribute("categorias", categoriaBean.getCategorias(produtos));
+		
+		
 		if (produtos == null) {
 			produtos = new ArrayList<ProdutoBean>();
 			request.setAttribute("produtos", produtos);

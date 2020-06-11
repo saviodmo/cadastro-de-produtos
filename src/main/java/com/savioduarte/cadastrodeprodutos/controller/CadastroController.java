@@ -54,6 +54,7 @@ public class CadastroController extends HttpServlet {
 		HttpSession session = request.getSession();
 		
 		List<ProdutoBean> produtos = (List<ProdutoBean>) session.getAttribute("produtos");
+
 		
 		if(produtos == null) {
 			produtos = new ArrayList<ProdutoBean>();
@@ -69,7 +70,7 @@ public class CadastroController extends HttpServlet {
 		ProdutoBean prod = new ProdutoBean(codigo, nomeProduto, preco, categoria);
 		
 		
-		produtos.stream().distinct().collect(Collectors.toList());
+		produtos.stream().forEach(p -> System.out.print(prod.getCategoria())); 
 		
 		produtos.add(prod);
 		

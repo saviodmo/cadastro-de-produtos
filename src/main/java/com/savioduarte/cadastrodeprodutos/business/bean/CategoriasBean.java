@@ -5,16 +5,17 @@ import java.util.List;
 
 public class CategoriasBean {
 
-	public List<CategoriaBean> getCategorias(List<ProdutoBean> produtos){
-		
-		List<CategoriaBean> categoriaDistintas = new ArrayList<>();
-		
+	public List<String> getCategorias(List<ProdutoBean> produtos) {
+
+
+		List<String> categoriaDistinta = new ArrayList<>();
+
+
 		for (ProdutoBean produto : produtos) {
-			categoriaDistintas.add(produto.getCategoria());
+			categoriaDistinta.add(produto.getCategoria());
 		}
 		
-		
-		return categoriaDistintas;
+		return categoriaDistinta;
 	}
-	
+
 }
