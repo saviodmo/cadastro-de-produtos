@@ -6,18 +6,23 @@ import java.util.List;
 
 public class ProdutosBean {
 
-	public List<ProdutoBean> getProdutosFiltrados(String nomeCategoria, List<ProdutoBean> produtos) {
+	public List<ProdutoBean> getProdutosFiltrados(String[] nomeCategoria, List<ProdutoBean> produtos) {
 
 		if (nomeCategoria == null) {
 			return produtos;
 		}	
 
 		List<ProdutoBean> produtosFiltrados = new ArrayList<>();
+		List<String> categorias = new ArrayList<>();
 
+		for (String categoria : nomeCategoria) {
+			categorias.add(categoria);
+		}
+		
 		//List<Integer> codigos = new ArrayList<>();
 
 		for (ProdutoBean produto : produtos) {
-			if (produto.getCategoria().equals(nomeCategoria)) {
+			if (categorias.contains(produto.getCategoria())) {
 				produtosFiltrados.add(produto);
 			}
 		}

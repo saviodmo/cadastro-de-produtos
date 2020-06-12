@@ -41,7 +41,7 @@ public class ProdutosController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		HttpSession session = request.getSession();
-		String nomeCategoria = request.getParameter("categoria");
+		String[] nomeCategoria = request.getParameterValues("categoria");
 		
 		List<ProdutoBean> produtos = (List<ProdutoBean>) session.getAttribute("produtos");
 		List<CategoriaBean> categorias = (List<CategoriaBean>) session.getAttribute("categorias");
