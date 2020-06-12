@@ -58,7 +58,7 @@
 									<label for="categorias">Categorias</label> <select multiple
 										class="form-control" name="categoria" id="categorias">
 										<c:forEach items="${ categorias }" var="categoria">
-											<option>${ categoria.categoria }</option>
+											<option>${ categoria }</option>
 										</c:forEach>
 									</select>
 								</div>

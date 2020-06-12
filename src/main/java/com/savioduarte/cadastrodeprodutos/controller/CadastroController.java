@@ -80,6 +80,7 @@ public class CadastroController extends HttpServlet {
 		categorias.add(cat);
 		
 		
+		
 		session.setAttribute("produtos", produtos);
 		session.setAttribute("categorias", categorias);
 		

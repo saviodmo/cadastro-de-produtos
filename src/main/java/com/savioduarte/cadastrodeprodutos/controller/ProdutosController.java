@@ -14,7 +14,6 @@ import javax.servlet.http.HttpSession;
 
 
 import com.savioduarte.cadastrodeprodutos.business.bean.CategoriaBean;
-import com.savioduarte.cadastrodeprodutos.business.bean.CategoriasBean;
 import com.savioduarte.cadastrodeprodutos.business.bean.ProdutoBean;
 import com.savioduarte.cadastrodeprodutos.business.bean.ProdutosBean;
 
@@ -26,7 +25,6 @@ public class ProdutosController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	private ProdutosBean produtosBean;
-	private CategoriasBean categoriasBean;
 	
     /**
      * @see HttpServlet#HttpServlet()
@@ -35,7 +33,6 @@ public class ProdutosController extends HttpServlet {
         super();
         // TODO Auto-generated constructor stub
         produtosBean = new ProdutosBean();
-        categoriasBean = new CategoriasBean();
     }
 
 	/**
@@ -50,18 +47,20 @@ public class ProdutosController extends HttpServlet {
 		List<CategoriaBean> categorias = (List<CategoriaBean>) session.getAttribute("categorias");
 		
 		
-		request.setAttribute("produtos", produtosBean.getProdutosFiltrados(nomeCategoria, produtos));
-		request.setAttribute("categorias", categoriasBean.getCategorias(categorias));
-
-		//request.setAttribute("categorias", categoriaBean.getCategorias(produtos));
-		
-		
 		if (produtos == null) {
 			produtos = new ArrayList<ProdutoBean>();
 			categorias = new ArrayList<CategoriaBean>();
 			request.setAttribute("produtos", produtos);
 			request.setAttribute("categorias", categorias);
 		}
+		
+		request.setAttribute("produtos", produtosBean.getProdutosFiltrados(nomeCategoria, produtos));
+		request.setAttribute("categorias", categorias.stream().map(CategoriaBean::getCategoria).distinct().collect(Collectors.toList()));
+
+		//request.setAttribute("categorias", categoriaBean.getCategorias(produtos));
+		
+		
+
 		
 		request.getRequestDispatcher("/produtos.jsp").forward(request, response);
 	}
@@ -77,9 +76,12 @@ public class ProdutosController extends HttpServlet {
 		int index = Integer.parseInt(indexString) - 1;
 		
 		HttpSession session = request.getSession();
+		
 		List<ProdutoBean> produtos = (List<ProdutoBean>) session.getAttribute("produtos");
+		List<CategoriaBean> categorias = (List<CategoriaBean>) session.getAttribute("categorias");
 		
 		produtos.remove(index);
+		categorias.remove(index);
 		
 		
 		doGet(request, response);
